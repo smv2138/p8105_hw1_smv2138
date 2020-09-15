@@ -13,7 +13,7 @@ library(tidyverse)
 
 Create a data frame with the specified elements
 
-``` {r}
+``` {r create df}
 prob1_df = 
 tibble(
   samp = rnorm(10),
@@ -24,7 +24,7 @@ factor_vec = factor(c("low", "low", "low", "mod", "mod", "mod", "mod", "high", "
 ```
 
 Take the mean of each variable in my data frame.
-```{r}
+```{r mean_pull_var}
 mean(pull(prob1_df, samp))
 mean(pull(prob1_df, samp_gt_0))
 mean(pull(prob1_df, char_vec))
@@ -32,9 +32,9 @@ mean(pull(prob1_df,factor_vec))
 ```
 
 I can take the mean of numbers and logical but not characters or factors.
-* for "samp_gt_0, R is converting them to 0 and 1 before taking the mean
+  *for "samp_gt_0, R is converting them to 0 and 1 before taking the     mean
 
-```{r}
+```{r try_numeric}
 as.numeric(pull(prob1_df, samp))
 as.numeric(pull(prob1_df, samp_gt_0))
 as.numeric(pull(prob1_df, char_vec))
@@ -42,6 +42,24 @@ as.numeric(pull(prob1_df,factor_vec))
 ```
 
 The "as.numeric" function makes it clear that R converts logicals to 0 and 1.
+Now, I am able to take the mean of the factor_vec (after it was converted to a numeric)
+
+```{r convert_variables_product}
+as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
+as.factor(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
+as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
+```
+
+I was able to convert the logical to a numeric and then multiply the result to the sample.
+I was not able to multiply the converted factor by the sample
+However, once I converted the factor back to a numeric, I was able to successfully multiply the result by the sample.
+
+Why Jeff doesn't like '$'?
+
+```{r why_no_$}
+prob1_df$samp
+pull(prob1_df, samp)
+```
 
 
 ## Problem 2
