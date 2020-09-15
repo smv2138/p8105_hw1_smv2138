@@ -1,0 +1,6 @@
+---
+title: "Homework 1"
+author: Sushupta Vijapur
+output: github_document
+---
+This is my solution to HW1.
