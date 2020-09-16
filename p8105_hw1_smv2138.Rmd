@@ -63,3 +63,12 @@ pull(prob1_df, samp)
 
 
 ## Problem 2
+```{r penguins data set description}
+data("penguins", package = "palmerpenguins")
+mean(as.numeric(pull(penguins, flipper_length_mm)), na.rm = TRUE)
+```
+There are 344 observations (rows) and 8 columns in the penguins dataset
+  - One key variables include the type pf species, which consists of 3      levels (Adelie, Chinstrap and Gentoo)
+  - Another variable of note was flipper length, which has some NA          values 
+  - To take the mean of flipper length, we need to specify to remove NA     values so we add "na.rm = TRUE" in the code line. This is an            argument of the mean function, so the brackets were placed              appropriately
+  - The flipper length mean was 200.9152 mm
