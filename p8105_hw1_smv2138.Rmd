@@ -11,7 +11,7 @@ library(tidyverse)
 
 ## Problem 1
 
-Create a data frame with the specified elements
+### Create a data frame with the specified elements
 
 ``` {r create df}
 prob1_df = 
@@ -23,7 +23,8 @@ factor_vec = factor(c("low", "low", "low", "mod", "mod", "mod", "mod", "high", "
 )
 ```
 
-Take the mean of each variable in my data frame.
+### Take the mean of each variable in my data frame
+
 ```{r mean_pull_var}
 mean(pull(prob1_df, samp))
 mean(pull(prob1_df, samp_gt_0))
@@ -31,18 +32,19 @@ mean(pull(prob1_df, char_vec))
 mean(pull(prob1_df,factor_vec))
 ```
 
-I can take the mean of numbers and logical but not characters or factors.
-  *for "samp_gt_0, R is converting them to 0 and 1 before taking the     mean
+I can take the mean of numbers and logical but not characters or factors
+  + For "samp_gt_0, R is converting them to 0 and 1 before      taking the mean
 
+### Converting all variables to numeric
 ```{r try_numeric}
 as.numeric(pull(prob1_df, samp))
 as.numeric(pull(prob1_df, samp_gt_0))
 as.numeric(pull(prob1_df, char_vec))
-as.numeric(pull(prob1_df,factor_vec))
+mean(as.numeric(pull(prob1_df,factor_vec)))
 ```
 
 The "as.numeric" function makes it clear that R converts logicals to 0 and 1.
-Now, I am able to take the mean of the factor_vec (after it was converted to a numeric)
+* Now, I am able to take the mean of the factor_vec (after     it was converted to a numeric)
 
 ```{r convert_variables_product}
 as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
@@ -50,11 +52,11 @@ as.factor(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
 as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
 ```
 
-I was able to convert the logical to a numeric and then multiply the result to the sample.
+I was able to convert the logical to a numeric and then multiply the result to the sample
 I was not able to multiply the converted factor by the sample
 However, once I converted the factor back to a numeric, I was able to successfully multiply the result by the sample.
 
-Why Jeff doesn't like '$'?
+### Why Jeff doesn't like '$'?
 
 ```{r why_no_$}
 prob1_df$samp
@@ -64,16 +66,21 @@ pull(prob1_df, samp)
 
 
 ## Problem 2
+
+### Load Penguins data set
 ```{r penguins data set description}
 data("penguins", package = "palmerpenguins")
 
 mean(as.numeric(pull(penguins, flipper_length_mm)), na.rm = TRUE)
 ```
 There are 344 observations (rows) and 8 columns in the penguins dataset
-  - One key variables include the type pf species, which consists of 3      levels (Adelie, Chinstrap and Gentoo)
-  - Another variable of note was flipper length, which has some NA          values 
-  - To take the mean of flipper length, we need to specify to remove NA     values so we add "na.rm = TRUE" in the code line. This is an            argument of the mean function, so the brackets were placed              appropriately
-  - The flipper length mean was 200.9152 mm
+
+One key variables include the type pf species, which        consists of 3 levels (Adelie, Chinstrap and Gentoo)
+
+Another variable of note was flipper length, which has      some NA values 
+
+To take the mean of flipper length, we need to specify      to remove NA values so we add "na.rm = TRUE" in the         code line. This is an argument of the mean function, so     the brackets were placed appropriately
+  + The flipper length mean was 200.9152 mm
 
 
 ```{r}
@@ -83,5 +90,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)
 
 ggsave("penguins_scatter.pdf")
 ```
+
 Created a scatter plot of bill length (mm) by flipper length (mm) and categorized them by species type. 
-  - Exported the graph to a pdf file
+
+Exported the graph to a pdf file
