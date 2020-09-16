@@ -58,6 +58,7 @@ Why Jeff doesn't like '$'?
 
 ```{r why_no_$}
 prob1_df$samp
+
 pull(prob1_df, samp)
 ```
 
@@ -65,6 +66,7 @@ pull(prob1_df, samp)
 ## Problem 2
 ```{r penguins data set description}
 data("penguins", package = "palmerpenguins")
+
 mean(as.numeric(pull(penguins, flipper_length_mm)), na.rm = TRUE)
 ```
 There are 344 observations (rows) and 8 columns in the penguins dataset
@@ -72,3 +74,14 @@ There are 344 observations (rows) and 8 columns in the penguins dataset
   - Another variable of note was flipper length, which has some NA          values 
   - To take the mean of flipper length, we need to specify to remove NA     values so we add "na.rm = TRUE" in the code line. This is an            argument of the mean function, so the brackets were placed              appropriately
   - The flipper length mean was 200.9152 mm
+
+
+```{r}
+penguins_scatter = 
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
+  geom_point()
+
+ggsave("penguins_scatter.pdf")
+```
+Created a scatter plot of bill length (mm) by flipper length (mm) and categorized them by species type. 
+  - Exported the graph to a pdf file
