@@ -5,13 +5,15 @@ output: github_document
 ---
 This is my solution to HW1.
 
-``` {r}
+``` {r, message = FALSE}
 library(tidyverse)
 ```
 
 ## Problem 1
 
-### Create a data frame with the specified elements
+### Part A 
+
+Create a data frame with the specified elements
 
 ``` {r create df}
 prob1_df = 
@@ -23,7 +25,9 @@ factor_vec = factor(c("low", "low", "low", "mod", "mod", "mod", "mod", "high", "
 )
 ```
 
-### Take the mean of each variable in my data frame
+### Part B
+
+Take the mean of each variable in the data frame
 
 ```{r mean_pull_var}
 mean(pull(prob1_df, samp))
@@ -32,11 +36,15 @@ mean(pull(prob1_df, char_vec))
 mean(pull(prob1_df,factor_vec))
 ```
 
-I can take the mean of numbers and logical but not characters or factors
-  + For "samp_gt_0, R is converting them to 0 and 1 before      taking the mean
+I can take the mean of numbers and logical but not characters or factors.
 
-### Converting all variables to numeric
-```{r try_numeric}
+For "samp_gt_0", R is converting them to 0 and 1 before taking the mean.
+
+### Part C
+
+Converting all variables to numeric
+
+```{r try_numeric, eval=FALSE}
 as.numeric(pull(prob1_df, samp))
 as.numeric(pull(prob1_df, samp_gt_0))
 as.numeric(pull(prob1_df, char_vec))
@@ -44,47 +52,36 @@ mean(as.numeric(pull(prob1_df,factor_vec)))
 ```
 
 The "as.numeric" function makes it clear that R converts logicals to 0 and 1.
-* Now, I am able to take the mean of the factor_vec (after     it was converted to a numeric)
+Now, I am able to take the mean of the factor_vec (after     it was converted to a numeric).
 
-```{r convert_variables_product}
+```{r convert_variables_product, eval = FALSE}
 as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
 as.factor(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
 as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
 ```
 
-I was able to convert the logical to a numeric and then multiply the result to the sample
-I was not able to multiply the converted factor by the sample
+I was able to convert the logical to a numeric and then multiply the result to the sample.
+I was not able to multiply the converted factor by the sample.
 However, once I converted the factor back to a numeric, I was able to successfully multiply the result by the sample.
-
-### Why Jeff doesn't like '$'?
-
-```{r why_no_$}
-prob1_df$samp
-
-pull(prob1_df, samp)
-```
 
 
 ## Problem 2
 
-### Load Penguins data set
+### Part A
 ```{r penguins data set description}
 data("penguins", package = "palmerpenguins")
 
 mean(as.numeric(pull(penguins, flipper_length_mm)), na.rm = TRUE)
 ```
-There are 344 observations (rows) and 8 columns in the penguins dataset
+There are 344 observations (rows) and 8 columns in the penguins dataset. One key variables include the type pf species (factor), which consists of 3 levels (Adelie, Chinstrap and Gentoo). The "island" variable was also a factor with 3 levels as well (Biscoe, Dream, Torgersen). Bill length (mm) and bill depth (mm) were both numeric variables with some missing data (NA). Flipper length (mm) and body mass (g) were both integers and also had missing NA values. Sex was a factor variable with 2 levels (and also had missing NA values). Year was the last variable in the dataset and was an integar. 
 
-One key variables include the type pf species, which        consists of 3 levels (Adelie, Chinstrap and Gentoo)
+To take the mean of flipper length, we need to specify to remove NA values so we add "na.rm = TRUE" in the code line. This is an argument of the mean function, so the brackets were placed appropriately.
 
-Another variable of note was flipper length, which has      some NA values 
+The flipper length mean was 200.9152 mm.
 
-To take the mean of flipper length, we need to specify      to remove NA values so we add "na.rm = TRUE" in the         code line. This is an argument of the mean function, so     the brackets were placed appropriately
-  + The flipper length mean was 200.9152 mm
-
-
+### Part B
 ```{r}
-penguins_scatter = 
+
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
   geom_point()
 
